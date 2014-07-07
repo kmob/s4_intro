@@ -1,0 +1,61 @@
+# template of elements for a class file
+
+# define class using setClass and including validation
+
+# initialize the class using setMethod for function = 'initialize'
+# include automatic naming of values (e.g. matrix row and column)
+
+# setMethod function = 'show' for new class 
+
+# write a function to create a new instance of the class
+
+# write a function to create a special new instance of the class based on special arguments
+
+# setMethod class specific method for existing functions 
+# e.g., function = 'plot' for new class 
+
+# setGeneric: new method for new class
+
+# setMethod for the new method for the new class
+
+# lockBinding to protect new method for this class 
+lockBinding('countMissing',.GlobalEnv)
+
+# create function to prevent over-writing a method using setGeneric
+setGenericVerif <- function(x,y){
+  if(!isGeneric(x)){
+    setGeneric(x,y)}
+  else{}
+}
+
+### write Getter method for values in the new class 
+setGeneric('getTimes', function(object){standardGeneric('getTimes')})
+setMethod(f = 'getTimes',
+          signature = 'Trajectories',
+          definition = function(object){
+            return(object@times)
+          }
+)
+
+### write Getter method for a subset of values in the new class 
+setGeneric('getTrajInclusion', function(object){standardGeneric('getTrajInclusion')})
+setMethod(f = 'getTrajInclusion',
+          signature = 'Trajectories',
+          definition = function(object){
+            return(object@traj[,1])
+          }
+)
+
+
+##### write Setter method for values in the new class 
+setGeneric('setTimes<-', function(object, value){standardGenaric('setTimes<-')})
+setReplaceMethod(
+  f = 'setTimes',
+  signature = 'Trajectories',
+  definition = function(object, value){
+    object@times <- value
+    validObject(object) # call the inspector to verify instance is OK 
+    return(object)
+  }
+)
+
