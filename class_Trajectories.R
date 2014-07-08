@@ -151,7 +151,7 @@ setReplaceMethod(
   }
 )
 
-# new class inherits Trajectories, didn't work if in separate file
+# new class inherits Trajectories, didn't work if in separate .R file
 setClass(Class = 'TrajPartitioned',
          slots = c(listPartitions = 'list'),
          contains = 'Trajectories'
@@ -173,25 +173,12 @@ setMethod(
   }
 )
 
-# set show method for class Trajectories
+# set show method for class TrajPartitioned
 setMethod(f = 'show',
           signature = 'TrajPartitioned',
           definition = function(object){
-            callNextMethod()
-            #             cat('*** Class TrajPartitioned, method Show *** \n')
-            #             cat('* Times ='); print(object@times)
-            #             nrowShow <- min(10, nrow(object@traj))
-            #             ncolShow <- min(10, ncol(object@traj))
-            #             cat('* Traj (limited to a matrix 10x10) = \n')
-            #             # if the length of the traj is other than zero
-            #             if(length(object@traj)!=0){
-            #               # print no more than a 10x10 segment of the matrix 
-            #               print(formatC(object@traj[1:nrowShow, 1:ncolShow]), quote = FALSE)              
-            #             } else{}
-            #             cat('******* End Show (TrajPartitioned) ******* \n')
-            cat("the object also contains", length(object@listPartitions), "partition")
-            cat('* listPartitions ='); print(object@listPartitions)
-            cat("\n ***** Fine of print (TrajPartitioned) ***** \n")
+            show(as(object,"Trajectories"))
+            lapply(object@listPartitions,show)
           }
 )
 

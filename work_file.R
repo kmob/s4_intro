@@ -106,6 +106,7 @@ getTrajInclusion(trajCochin)
 setTimes(trajCochin) <- c(1,2,4,6)
 setTimes(trajCochin) <- 1:3
 
+###### Section 8 #######
 ### new Partition instances ####
 partCochin <- new(Class="Partition",nbGroups=2,part=factor(c("A","B","A","B")))
 partStAnne <- new(Class="Partition",nbGroups=2,part=factor(rep(c("A","B"),c(50,30))))
@@ -123,6 +124,8 @@ plot(trajStAnne)
 plot(trajCochin,partCochin)
 plot(trajStAnne,partStAnne)
 
+###### Section 9 ########
+### new TrajPartitioned instances ###
 tdPitie <- new('TrajPartitioned')
 
 unclass(tdPitie)
@@ -147,3 +150,5 @@ tdCochin <- new(Class = "TrajPartitioned",
 
 tdCochin
 print(tdCochin)
+
+### section 9.6 ###
