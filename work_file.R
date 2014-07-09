@@ -1,5 +1,8 @@
 source('class_Trajectories.R')
 source('class_Partition.R')
+source('class_TrajectoriesBis.R')
+source('class_TrajPartitioned.R')
+
 
 ######### CLASS DECLARATION #########
 
@@ -104,7 +107,7 @@ getTrajInclusion(trajCochin)
 
 ##### SET ACCESSOR ########
 setTimes(trajCochin) <- c(1,2,4,6)
-setTimes(trajCochin) <- 1:3
+setTimes(trajCochin) <- 1:4
 
 ###### Section 8 #######
 ### new Partition instances ####
@@ -152,3 +155,46 @@ tdCochin
 print(tdCochin)
 
 ### section 9.6 ###
+# avoid callNextMethod issues with 'as'
+print(as(tdPitie,"Trajectories"))
+
+is(trajCochin,"TrajPartitioned")
+is(tdCochin,"TrajPartitioned")
+is(tdCochin,"Trajectories")
+
+### Creation of empty TrajPartitioned
+tdStAnne <- new("TrajPartitioned")
+
+### Assignment of Trajectories to the attributes of TrajPartitioned 
+##### as(objectSon,"ClassFather") <- objectFather ####
+as(tdStAnne,"Trajectories") <- trajStAnne
+tdStAnne
+
+### see object of class TrajPartitioned as a Partition ###
+## specific instance of a class is called so doesn't belong in the class file
+## can add a fifth argument, the function test: 
+## it subordinates the transformation of class1 into class2 following a condition
+## this setIs replaces the partition having the smallest number of groups by a new one
+setIs(
+  class1="TrajPartitioned",
+  class2="Partition",
+  coerce=function(from,to){
+    numberGroups <- sapply(tdCochin@listPartitions,getNbGroups)
+    Smallest <- which.min(-numberGroups)
+    to<-new("Partition")
+    to@nbGroups <- getNbGroups(from@listPartitions[[Smallest]])
+    to@part <- getPart(from@listPartitions[[Smallest]])
+    return(to) 
+  },
+  replace=function(from,value){
+    numberGroups <- sapply(tdCochin@listPartitions,getNbGroups)
+    smallest <- which.min(numberGroups)
+    from@listPartitions[[smallest]] <- value
+    return(from) 
+  }
+)
+
+as(tdCochin,"Partition")
+as(tdCochin,"Partition") <- partCochin2
+
+### section 9.8
