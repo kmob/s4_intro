@@ -2,6 +2,10 @@ source('class_Trajectories.R')
 source('class_Partition.R')
 source('class_TrajectoriesBis.R')
 source('class_TrajPartitioned.R')
+source('class_PartitionFather.R')
+source('class_PartitionSimple.R')
+source('class_PartitionEval.R')
+
 
 
 ######### CLASS DECLARATION #########
@@ -198,3 +202,12 @@ as(tdCochin,"Partition")
 as(tdCochin,"Partition") <- partCochin2
 
 ### section 9.8
+### Virtual classes allow one method written for two classes
+### since the method applies to the parent,
+### both children run the same method (method looks up the inheritence chain)
+a <- new("PartitionSimple",nbGroups=3,part=factor(LETTERS[c(1,2,3,2,2,1)]))
+nbMultTwo(a)
+
+b <- new("PartitionEval",nbGroups=5,part=ordered(LETTERS[c(1,5,3,4,2,4)])) 
+nbMultTwo(b)
+
