@@ -211,3 +211,9 @@ nbMultTwo(a)
 b <- new("PartitionEval",nbGroups=5,part=ordered(LETTERS[c(1,5,3,4,2,4)])) 
 nbMultTwo(b)
 
+### section 10.2 
+### impute method creates a local object .Object, 
+### it modifies the local trajectories (impute by average) and returns an object. 
+### Impute(trajCochin) did not modify trajCochin.
+impute(trajCochin) # local replacement of NA with the average
+trajCochin # globally, the data in trajCochin is unchanged

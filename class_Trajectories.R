@@ -151,44 +151,16 @@ setReplaceMethod(
   }
 )
 
-# # new class inherits Trajectories, didn't work if in separate .R file
-# setClass(Class = 'TrajPartitioned',
-#          slots = c(listPartitions = 'list'),
-#          contains = 'Trajectories'
-# )
-# 
-# # initialize the class automatically naming matrix row and column
-# setMethod(
-#   f = 'initialize',
-#   signature = 'TrajPartitioned',
-#   definition = function(.Object, times, traj, listPartitions){
-#     cat('*** TrajPartitioned: initializator *** \n')
-#     if(!missing(traj)){  # handle empty objects as needed
-#       .Object@traj <- traj # assign the slots
-#       .Object@times <- times
-#       .Object@listPartitions <- listPartitions
-#       validObject(.Object) # call the inspector to verify instance is OK      
-#     }
-#     return(.Object) # return the object
-#   }
-# )
-# 
-# # set show method for class TrajPartitioned
-# setMethod(f = 'show',
-#           signature = 'TrajPartitioned',
-#           definition = function(object){
-#             show(as(object,"Trajectories"))
-#             lapply(object@listPartitions,show)
-#           }
-# )
-# 
-# setMethod(
-#   f = "print",
-#   signature = "TrajPartitioned",
-#   definition = function(x,...){
-#     callNextMethod()
-#     cat("the object also contains", length(x@listPartitions), "partition")
-#     cat("\n ***** Fine of print (TrajPartitioned) ***** \n")
-#     return(invisible()) 
-#   }
-# )
+##### impute for 'Trajectories'
+meanWithoutNa <- function (x){mean(x,na.rm=TRUE)}
+setGeneric("impute",function (.Object){standardGeneric("impute")})
+setMethod(f = "impute",
+          signature = "Trajectories",
+          def = function(.Object){
+            average <- apply(.Object@traj,2,meanWithoutNa)
+            for (iCol in 1:ncol(.Object@traj)){
+              .Object@traj[is.na(.Object@traj[,iCol]),iCol] <- average[iCol]      
+            }
+            return(.Object) 
+          }
+)
