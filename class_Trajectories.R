@@ -75,7 +75,7 @@ setMethod(
 # set print method for class Trajectories
 setMethod(f = 'print', 
           signature = 'Trajectories',
-          function(x,...){
+          definition = function(x,...){
             cat('*** Class Trajectoreis, method Print *** \n')
             cat('* Times ='); print (x@times)
             cat('* Traj = \n'); print (x@traj)
