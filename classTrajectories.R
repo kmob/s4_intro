@@ -140,7 +140,8 @@ setMethod(f = 'getTrajInclusion',
 
 
 ##### setter for 'times'
-setGeneric('setTimes<-', function(object, value){standardGenaric('setTimes<-')})
+setGeneric('setTimes<-', function(object, value){standardGeneric('setTimes<-')})
+
 setReplaceMethod(
   f = 'setTimes',
   signature = 'Trajectories',

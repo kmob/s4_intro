@@ -1,4 +1,4 @@
-source('class_Trajectories.R')
+source('classTrajectories.R')
 source('class_Partition.R')
 source('class_TrajectoriesBis.R')
 source('class_TrajPartitioned.R')
