@@ -1,10 +1,10 @@
 source('classTrajectories.R')
-source('class_Partition.R')
-source('class_TrajectoriesBis.R')
-source('class_TrajPartitioned.R')
-source('class_PartitionFather.R')
-source('class_PartitionSimple.R')
-source('class_PartitionEval.R')
+source('classPartition.R')
+source('classTrajectoriesBis.R')
+source('classTrajPartitioned.R')
+source('classPartitionFather.R')
+source('classPartitionSimple.R')
+source('classPartitionEval.R')
 
 
 
