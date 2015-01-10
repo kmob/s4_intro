@@ -119,6 +119,15 @@ setMethod(f = 'getTimes',
           }
 )
 
+### Getter for 'times'
+setGeneric('studyLength', function(object){standardGeneric('studyLength')})
+setMethod(f = 'studyLength',
+          signature = 'Trajectories',
+          definition = function(object){
+            return(length(object@times))
+          }
+)
+
 ### Getter for 'traj'
 setGeneric('getTraj', function(object){standardGeneric('getTraj')})
 setMethod(f = 'getTraj',
@@ -128,6 +137,14 @@ setMethod(f = 'getTraj',
           }
 )
 
+### Getter for 'traj'
+setGeneric('studyObservations', function(object){standardGeneric('studyObservations')})
+setMethod(f = 'studyObservations',
+          signature = 'Trajectories',
+          definition = function(object){
+            return(length(object@traj))
+          }
+)
 
 ### Getter for subset of 'traj'
 setGeneric('getTrajInclusion', function(object){standardGeneric('getTrajInclusion')})
