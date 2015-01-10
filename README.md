@@ -20,4 +20,7 @@ setMethod(f, signature=character(), definition,
           where = topenv(parent.frame()),
           valueClass = NULL, sealed = FALSE)
 
-removeMethod(f, signature, where)
+# setGenric Syntax
+setGeneric(name, def= , group=list(), valueClass=character(),
+           where= , package= , signature= , useAsDefault= ,
+           genericFunction= , simpleInheritanceOnly = )
