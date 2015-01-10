@@ -1,3 +1,4 @@
+# setClass
 # define class for Trajectories
 setClass(Class = 'Trajectories',
          slots = c(
@@ -13,7 +14,10 @@ setClass(Class = 'Trajectories',
          }
 )
 
-# initialize the class automatically naming matrix row and column
+
+##### initialize for 'Trajectories' ############
+# setMethod
+# specify generic "initialize" for Trajectories
 setMethod(
   f = 'initialize',
   signature = 'Trajectories',
@@ -30,22 +34,25 @@ setMethod(
   }
 )
 
-# set show method for class Trajectories
-setMethod(f = 'show',
-          signature = 'Trajectories',
-          function(object){
-            cat('*** Class Trajectories, method Show *** \n')
-            cat('* Times ='); print(object@times)
-            nrowShow <- min(10, nrow(object@traj))
-            ncolShow <- min(10, ncol(object@traj))
-            cat('* Traj (limited to a matrix 10x10) = \n')
-            # if the length of the traj is other than zero
-            if(length(object@traj)!=0){
-              # print no more than a 10x10 segment of the matrix 
-              print(formatC(object@traj[1:nrowShow, 1:ncolShow]), quote = FALSE)              
-            } else{}
-            cat('******* End Show (Trajectories) ******* \n')
-          }
+##### show for 'Trajectories' ############
+# setMethod
+# specify generic "show" for Trajectories
+setMethod(
+  f = 'show',
+  signature = 'Trajectories',
+  function(object){
+    cat('*** Class Trajectories, method Show *** \n')
+    cat('* Times ='); print(object@times)
+    nrowShow <- min(10, nrow(object@traj))
+    ncolShow <- min(10, ncol(object@traj))
+    cat('* Traj (limited to a matrix 10x10) = \n')
+    # if the length of the traj is other than zero
+    if(length(object@traj)!=0){
+      # print no more than a 10x10 segment of the matrix 
+      print(formatC(object@traj[1:nrowShow, 1:ncolShow]), quote = FALSE)              
+    } else{}
+    cat('******* End Show (Trajectories) ******* \n')
+  }
 )
 
 # write a function to create a new instance of the class
@@ -62,7 +69,9 @@ regularTrajectories <- function(nbWeek, BMIinit){
   return(new(Class = 'Trajectories', times = times, traj = traj))
 }
 
-# set plot method for class Trajectories
+##### plot for 'Trajectories' ############
+# setMethod
+# specify generic "plot" for Trajectories
 setMethod(
   f = 'plot',
   signature = 'Trajectories',
@@ -72,7 +81,9 @@ setMethod(
   }
 )
 
-# set print method for class Trajectories
+##### print for 'Trajectories' ############
+# setMethod
+# specify generic "print" for Trajectories
 setMethod(f = 'print', 
           signature = 'Trajectories',
           definition = function(x,...){
@@ -83,15 +94,17 @@ setMethod(f = 'print',
           }
 )
 
-# create countMissing method for class Trajectories
+##### countMissing for 'Trajectories' ############
+# setGeneric
+# create countMissing method
 setGeneric(
   name = 'countMissing',
   def = function(object){
     standardGeneric('countMissing')
   }
 )
-
-# set countMissing method for class Trajectories
+# setMethod
+# specify "countMissing" for Trajectories
 setMethod(
   f = 'countMissing',
   signature = 'Trajectories',
@@ -103,15 +116,21 @@ setMethod(
 # lock countMissing method for class Trajectories
 lockBinding('countMissing',.GlobalEnv)
 
-# create method to prevent over-writing a method using setGeneric
+##### prevent over-writing methods ############
+# setGeneric
+# create method to prevent over-writing a method
 setGenericVerif <- function(x,y){
   if(!isGeneric(x)){
     setGeneric(x,y)}
   else{}
 }
 
-### Getter for 'times'
+##### getTimes for 'Trajectories' ############
+# setGeneric
+# create getTimes method
 setGeneric('getTimes', function(object){standardGeneric('getTimes')})
+# setMethod
+# specify "getTimes" for Trajectories
 setMethod(f = 'getTimes',
           signature = 'Trajectories',
           definition = function(object){
@@ -119,8 +138,12 @@ setMethod(f = 'getTimes',
           }
 )
 
-### Getter for 'times'
+##### studyLength for 'Trajectories' ############
+# setGeneric
+# create studyLength method
 setGeneric('studyLength', function(object){standardGeneric('studyLength')})
+# setMethod
+# specify "studyLength" for Trajectories
 setMethod(f = 'studyLength',
           signature = 'Trajectories',
           definition = function(object){
@@ -128,8 +151,12 @@ setMethod(f = 'studyLength',
           }
 )
 
-### Getter for 'traj'
+##### getTraj for 'Trajectories' ############
+# setGeneric
+# create getTraj method
 setGeneric('getTraj', function(object){standardGeneric('getTraj')})
+# setMethod
+# specify "getTraj" for Trajectories
 setMethod(f = 'getTraj',
           signature = 'Trajectories',
           definition = function(object){
@@ -137,8 +164,12 @@ setMethod(f = 'getTraj',
           }
 )
 
-### Getter for 'traj'
+##### studyObservations for 'Trajectories' ############
+# setGeneric
+# create studyObservations method
 setGeneric('studyObservations', function(object){standardGeneric('studyObservations')})
+# setMethod
+# specify "studyObservations" for Trajectories
 setMethod(f = 'studyObservations',
           signature = 'Trajectories',
           definition = function(object){
@@ -146,8 +177,12 @@ setMethod(f = 'studyObservations',
           }
 )
 
-### Getter for subset of 'traj'
+##### getTrajInclusion for 'Trajectories' ############
+# setGeneric
+# create getTrajInclusion method
 setGeneric('getTrajInclusion', function(object){standardGeneric('getTrajInclusion')})
+# setMethod
+# specify "getTrajInclusion" for Trajectories
 setMethod(f = 'getTrajInclusion',
           signature = 'Trajectories',
           definition = function(object){
@@ -155,10 +190,12 @@ setMethod(f = 'getTrajInclusion',
           }
 )
 
-
-##### setter for 'times'
+##### setTimes for 'Trajectories' ############
+# setGeneric
+# create setTimes method
 setGeneric('setTimes<-', function(object, value){standardGeneric('setTimes<-')})
-
+# setReplaceMethod
+# specify "setTimes" for Trajectories
 setReplaceMethod(
   f = 'setTimes',
   signature = 'Trajectories',
@@ -169,9 +206,13 @@ setReplaceMethod(
   }
 )
 
-##### impute for 'Trajectories'
+##### impute for 'Trajectories' ############
 meanWithoutNa <- function (x){mean(x,na.rm=TRUE)}
+# setGeneric
+# create impute method
 setGeneric("impute",function (.Object){standardGeneric("impute")})
+# setMethod
+# specify "impute" for Trajectories
 setMethod(f = "impute",
           signature = "Trajectories",
           def = function(.Object){

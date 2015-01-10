@@ -8,15 +8,15 @@ source('classPartitionEval.R')
 
 
 
-######### CLASS DECLARATION #########
+#### Section 4 - Declaring Classes ##########
 
 new(Class = 'Trajectories', times=c(1,3,4))
 
 new(Class = 'Trajectories', times=c(1,3),traj=matrix(1:4,ncol=2))
 
-trajPitie <- new(Class='Trajectories')
+trajHospital_01 <- new(Class='Trajectories')
 
-trajCochin <- new(Class = 'Trajectories',
+trajHospital_02 <- new(Class = 'Trajectories',
                   times =c(1,3,4,5),
                   traj=rbind (
                     c(15,15.1,15.2,15.2),
@@ -26,7 +26,7 @@ trajCochin <- new(Class = 'Trajectories',
                   )
 )
 
-trajStAnne <- new(Class='Trajectories',
+trajHospital_03 <- new(Class='Trajectories',
                   times=c(1:10,(6:16)*2),
                   traj=rbind(
                     matrix(seq(16,19,length=21),ncol=21,nrow=50,byrow=TRUE),
@@ -34,9 +34,9 @@ trajStAnne <- new(Class='Trajectories',
                   )+rnorm(21*80,0,0.2)
 )
 
-trajCochin@times
-trajCochin@times<-c(1,2,4,5) #using @ re-writes the values of the instance. DON'T use @!
-trajCochin
+trajHospital_02@times
+trajHospital_02@times<-c(1,2,4,5) #using @ re-writes the values of the instance. DON'T use @!
+trajHospital_02
 
 test <- new('Trajectories')
 test
@@ -46,24 +46,29 @@ slotNames('Trajectories')
 getSlots('Trajectories')
 getClass('Trajectories')
 
-####### METHODS ###########
+#### Section 5 - Methods ##########
+####### EXISTING METHODS ###########
 
 # try plot method set for class Trajectories
 par(mfrow = c(1,2))
-plot(trajCochin)
-plot(trajStAnne)
+plot(trajHospital_02)
+plot(trajHospital_03)
 
 # try print method set for class Trajectories
-print(trajCochin)
+print(trajHospital_02)
 
 # try show method set for class Trajectories
-trajStAnne
+show(trajHospital_03)
+# OR
+trajHospital_03
 
 # what happens with new instance with no arguments?
 new('Trajectories')
 
+####### NEW METHODS ###########
+
 # try countMissing method for class Trajectories
-countMissing(trajCochin)
+countMissing(trajHospital_02)
 
 # see the methods for a class
 showMethods(class = 'Trajectories')
@@ -75,16 +80,16 @@ getMethod(f ='plot',
 # verify the method is defined for the class
 existsMethod(f = 'plot', signature = 'Trajectories')
 
-#### CONSTRUCTION ##########
+#### Section 6 - Constructors ##########
 
 # see results of inspector check on instance validity
 new(Class = 'Trajectories', times = 1:2, traj = matrix(1:2,ncol=2))
 new(Class = 'Trajectories', times = 1:3, traj = matrix(1:2,ncol=2))
 
 ## reminder that accessing values by @ is a bad idea
-trajStLouis <- new(Class = 'Trajectories', times = c(1), traj = matrix(1))
+trajHospital_04 <- new(Class = 'Trajectories', times = c(1), traj = matrix(1))
 ## using @ bypasses checking done on initialization, so the instance can now be broken
-(trajStLouis@times <- c(1,2,3))
+(trajHospital_04@times <- c(1,2,3))
 
 # see the results of initialize on labeling and inspecting
 new(Class = 'Trajectories', times = c(1,2,4,8), traj = matrix(1:8, nrow = 2))
@@ -100,44 +105,45 @@ trajectories(time = c(1,2,4), traj = matrix(1:6, ncol = 3))
 # shows that a 'global' initializor can deal with multiple cases
 regularTrajectories(nbWeek = 3, BMIinit = c(14,15,16))
 
+###### Section 7 - Accessors ########
 ##### GET ACCESSOR ########
 # times for a Trajectory
-getTimes(trajCochin)
+getTimes(trajHospital_02)
 # traj for a Trajectory
-getTraj(trajCochin)
+getTraj(trajHospital_02)
 # first column of traj for a Trajectory
-getTrajInclusion(trajCochin)
+getTrajInclusion(trajHospital_02)
 
 
 ##### SET ACCESSOR ########
-setTimes(trajCochin) <- c(1,2,4,6)
-setTimes(trajCochin) <- 1:4
+setTimes(trajHospital_02) <- c(1,2,4,6)
+setTimes(trajHospital_02) <- 1:4
 
-###### Section 8 #######
+###### Section 8 - Methods using several arguments #######
 ### new Partition instances ####
-partCochin <- new(Class="Partition",nbGroups=2,part=factor(c("A","B","A","B")))
-partStAnne <- new(Class="Partition",nbGroups=2,part=factor(rep(c("A","B"),c(50,30))))
+partHospital_02 <- new(Class="Partition",nbGroups=2,part=factor(c("A","B","A","B")))
+partHospital_03 <- new(Class="Partition",nbGroups=2,part=factor(rep(c("A","B"),c(50,30))))
 
 partTest <- new(Class="Partition",nbGroups=27,part=factor(rep(c("A","B"),c(50,30))))
 
-partCochin
-partStAnne
+partHospital_02
+partHospital_03
 
 par(mfrow=c(2,2))
 ### Plot for "Trajectory"
-plot(trajCochin)
-plot(trajStAnne)
+plot(trajHospital_02)
+plot(trajHospital_03)
 ### Plot for "Trajectory" plus "Partition" 
-plot(trajCochin,partCochin)
-plot(trajStAnne,partStAnne)
+plot(trajHospital_02,partHospital_02)
+plot(trajHospital_03,partHospital_03)
 
-###### Section 9 ########
+###### Section 9 - Inheritance ########
 ### new TrajPartitioned instances ###
-tdPitie <- new('TrajPartitioned')
+tdHospital_01 <- new('TrajPartitioned')
 
-unclass(tdPitie)
+unclass(tdHospital_01)
 
-partCochin2 <- new(Class = "Partition",
+partHospital_022 <- new(Class = "Partition",
                    nbGroups = 3,
                    part = factor(c("A","C","C","B")) 
                    )
@@ -149,30 +155,30 @@ hasMethod("initialize","TrajPartitioned") #looks up the inheritance for TrajPart
 selectMethod ("initialize", "TrajPartitioned") #tells which method up the inheritance chain is executing
 
 
-tdCochin <- new(Class = "TrajPartitioned",
-                traj = trajCochin@traj,
+tdHospital_02 <- new(Class = "TrajPartitioned",
+                traj = trajHospital_02@traj,
                 times = c(1,3,4,5),
-                listPartitions = list(partCochin,partCochin2) 
+                listPartitions = list(partHospital_02,partHospital_022) 
 )
 
-tdCochin
-print(tdCochin)
+tdHospital_02
+print(tdHospital_02)
 
 ### section 9.6 ###
 # avoid callNextMethod issues with 'as'
-print(as(tdPitie,"Trajectories"))
+print(as(tdHospital_01,"Trajectories"))
 
-is(trajCochin,"TrajPartitioned")
-is(tdCochin,"TrajPartitioned")
-is(tdCochin,"Trajectories")
+is(trajHospital_02,"TrajPartitioned")
+is(tdHospital_02,"TrajPartitioned")
+is(tdHospital_02,"Trajectories")
 
 ### Creation of empty TrajPartitioned
-tdStAnne <- new("TrajPartitioned")
+tdHospital_03 <- new("TrajPartitioned")
 
 ### Assignment of Trajectories to the attributes of TrajPartitioned 
 ##### as(objectSon,"ClassFather") <- objectFather ####
-as(tdStAnne,"Trajectories") <- trajStAnne
-tdStAnne
+as(tdHospital_03,"Trajectories") <- trajHospital_03
+tdHospital_03
 
 ### see object of class TrajPartitioned as a Partition ###
 ## specific instance of a class is called so doesn't belong in the class file
@@ -183,7 +189,7 @@ setIs(
   class1="TrajPartitioned",
   class2="Partition",
   coerce=function(from,to){
-    numberGroups <- sapply(tdCochin@listPartitions,getNbGroups)
+    numberGroups <- sapply(tdHospital_02@listPartitions,getNbGroups)
     Smallest <- which.min(-numberGroups)
     to<-new("Partition")
     to@nbGroups <- getNbGroups(from@listPartitions[[Smallest]])
@@ -191,15 +197,15 @@ setIs(
     return(to) 
   },
   replace=function(from,value){
-    numberGroups <- sapply(tdCochin@listPartitions,getNbGroups)
+    numberGroups <- sapply(tdHospital_02@listPartitions,getNbGroups)
     smallest <- which.min(numberGroups)
     from@listPartitions[[smallest]] <- value
     return(from) 
   }
 )
 
-as(tdCochin,"Partition")
-as(tdCochin,"Partition") <- partCochin2
+as(tdHospital_02,"Partition")
+as(tdHospital_02,"Partition") <- partHospital_022
 
 ### section 9.8
 ### Virtual classes allow one method written for two classes
@@ -211,9 +217,10 @@ nbMultTwo(a)
 b <- new("PartitionEval",nbGroups=5,part=ordered(LETTERS[c(1,5,3,4,2,4)])) 
 nbMultTwo(b)
 
+###### Section 10 - Internal modification of an object ########
 ### section 10.2 
 ### impute method creates a local object .Object, 
 ### it modifies the local trajectories (impute by average) and returns an object. 
-### Impute(trajCochin) did not modify trajCochin.
-impute(trajCochin) # local replacement of NA with the average
-trajCochin # globally, the data in trajCochin is unchanged
+### Impute(trajHospital_02) did not modify trajHospital_02.
+impute(trajHospital_02) # local replacement of NA with the average
+trajHospital_02 # globally, the data in trajHospital_02 is unchanged
