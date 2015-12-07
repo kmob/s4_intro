@@ -1,4 +1,4 @@
-Package: s4_intro
+Package: s4intro
 Title: worked examples from Genolini's "A (Not So) Short Introduction to S4" for R (2008)
 Version: 0.1
 Authors@R: person("Kevin", "O'Brien", email = "kevin@obrien-consulting.com", role = c("aut", "cre"))
