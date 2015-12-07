@@ -2,7 +2,8 @@ Package: s4intro
 Title: worked examples from Genolini's "A (Not So) Short Introduction to S4" for R (2008)
 Version: 0.1
 Authors@R: person("Kevin", "O'Brien", email = "kevin@obrien-consulting.com", role = c("aut", "cre"))
-Description: Worked examples from Genolini's A (Not So) Short Introduction to S4 (http://christophe.genolini.free.fr/webTutorial/notSoShort.php)
+Description: Worked examples: Genolini's A (Not So) Short Introduction to S4
+    (http://christophe.genolini.free.fr/webTutorial/notSoShort.php)
 Depends: R (>= 3.1.0)
 License: MIT + file LICENSE
 LazyData: true
