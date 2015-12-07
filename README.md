@@ -24,3 +24,6 @@ setMethod(f, signature=character(), definition,
 setGeneric(name, def= , group=list(), valueClass=character(),
            where= , package= , signature= , useAsDefault= ,
            genericFunction= , simpleInheritanceOnly = )
+
+# Travis?
+Added travis-ci to test how it works with r-unit
